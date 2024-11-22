@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const variantSchema = new mongoose.Schema({
   variant_id: {
     type: Number,
+    unique: true,
     required: true,
   },
   product_id: {
@@ -19,8 +20,8 @@ const variantSchema = new mongoose.Schema({
     type: [String],
     required: true,
     validate: {
-      validator: (v) => Array.isArray(v) && v.length > 8,
-      message: "Images array must contain 8 images.",
+      validator: (v) => Array.isArray(v) && v.length >= 1 && v.length <= 8,
+      message: "Images array must contain between 1 and 8 images.",
     },
   },
   stock: {
@@ -69,7 +70,7 @@ const ProductDetailSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    product_gender: {
+    product_sub_category: {
       type: String,
       required: true,
     },
@@ -94,3 +95,5 @@ const ProductDetailSchema = new mongoose.Schema(
 );
 
 const productDetails = mongoose.model("Product", ProductDetailSchema);
+
+module.exports = productDetails;

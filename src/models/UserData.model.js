@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Define the User Signup Schema
-const userSignupSchema = new mongoose.Schema({
+const userDataSchema = new mongoose.Schema({
   user_first_name: {
     type: String,
     required: function () {
@@ -52,11 +52,11 @@ const userSignupSchema = new mongoose.Schema({
 });
 
 // Pre-save hook to ensure confirm_password is not saved in the database
-userSignupSchema.pre("save", function (next) {
+userDataSchema.pre("save", function (next) {
   this.confirm_password = undefined; // Remove confirm_password field
   next();
 });
 
 // Create and export the UserSignup model
-const UserSignup = mongoose.model("UserSignup", userSignupSchema);
-module.exports = UserSignup;
+const UserData = mongoose.model("UserSignup", userDataSchema);
+module.exports = UserData;
